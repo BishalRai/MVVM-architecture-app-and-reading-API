@@ -19,7 +19,7 @@ sealed interface TodoUIState{
 
 
 class TodoViewModel:ViewModel() {
-    var todoUIState = TodoUIState by mutableStateOf<TodoUIState>(TodoUIState.Loading)
+    var todoUIState : TodoUIState by mutableStateOf<TodoUIState>(TodoUIState.Loading)
         private set
 
     init {
@@ -34,7 +34,7 @@ class TodoViewModel:ViewModel() {
             try {
                 todosApi = TodosApi!!.getInstance()
                 //todos.clear()
-                todoUIState.addAll(todosApi.getTodos())
+                todoUIState= TodoUIState.Success(todosApi.getTodos())
             }catch (e:Exception){
                 Log.d("TODOVIEWMODEL", e.message.toString())
                 todoUIState = TodoUIState.Error
